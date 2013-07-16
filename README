@@ -1,1 +1,35 @@
-This file was created by IntelliJ IDEA 12.1.4 for binding GitHub repository
+**********************************************************************
+TRANSACTION DELIVERY
+**********************************************************************
+Requirements:
+    a. MySQL server 5.x installed and configured.
+    b. transactionQueueDB schema running on MySQL server.
+    c. Java SDK 1.6.0_37
+    d. Maven 3.0.x installed.
+
+Installation:
+    2. Make sure that “database.properties” file matches your database configuration.
+    3. Also make sure to check “email.properties” file, in order to allow the application send emails from and to an
+    email account. For testing purposes you can use a gmail account for the from email account.
+    4. After that you should be ready to package the TransactionDelivery. To do it you should go to the terminal console
+     and under the folder “transactionDelivery” you must run the following commands:
+        - $mvn clean
+        - $mvn package
+    5.	If execution of the above processes are successful, a “target” folder will be created under
+    transactionDelivery folder.
+    6.	Assuming you are still on “transactionDelivery ” folder run the following command in order to run
+    TransactionDelivery:
+        - $java –jar target/TransactionDelivery.one-jar.jar
+    7. In order to manually package a tarball file for production we must keep the following file structure:
+        - transactionDelivery (Folder)
+                |
+                |__ target (Folder)
+                |
+                |__ TransactionDelivery.one-jar.jar (Jar file)
+
+       Then you will be able to execute jar file as in previous step:
+        - $ java –jar target/TransactionDelivery.one-jar.jar
+    8. At this point TransactionDelivery will retrieve data from transactionQueueDB, READY/FAILURE transactions, will be
+     send via SMTP, to email defined on step 2.c.
+
+Changes:
