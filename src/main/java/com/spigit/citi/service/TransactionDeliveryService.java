@@ -23,8 +23,7 @@ public class TransactionDeliveryService extends Service {
         logger.info("*************************TransactionDelivery*************************");
         List<TransactionQueue> transactionQueues = getTransactionQueues();
         if(transactionQueues!=null && !transactionQueues.isEmpty()) {
-            transactionQueues = assemblyAndSendSMTPMessages(transactionQueues);
-            updateTransactionQueueStatus(transactionQueues);
+            assemblyAndSendSMTPMessages(transactionQueues);
         } else   {
               logger.warn("There are no transactions in queue.");
         }
@@ -35,16 +34,16 @@ public class TransactionDeliveryService extends Service {
         return transactionQueueDAO.getNotSuccessTransactionQueues();
     }
 
-    private List<TransactionQueue> assemblyAndSendSMTPMessages(List<TransactionQueue> transactionQueues)   {
+    private void assemblyAndSendSMTPMessages(List<TransactionQueue> transactionQueues)   {
         logger.info("Sending transactions through SMTP messages.");
         for(TransactionQueue transactionQueue : transactionQueues)  {
             transactionQueue = emailService.assemblyAndSendSMTPMessage(transactionQueue);
+            updateTransactionQueueStatus(transactionQueue);
         }
-        return transactionQueues;
     }
 
-    private void updateTransactionQueueStatus(List<TransactionQueue> transactionQueues)   {
+    private void updateTransactionQueueStatus(TransactionQueue transactionQueue)   {
         logger.info("Update transaction status.");
-        transactionQueueDAO.updateTransactionQueues(transactionQueues);
+        transactionQueueDAO.updateTransactionQueue(transactionQueue);
     }
 }

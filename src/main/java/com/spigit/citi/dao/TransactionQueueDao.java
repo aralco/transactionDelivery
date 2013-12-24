@@ -16,4 +16,6 @@ public interface TransactionQueueDao {
 
     public void updateTransactionQueues(List<TransactionQueue> transactionQueueList);
 
+    public void updateTransactionQueue(TransactionQueue transactionQueue);
+
 }

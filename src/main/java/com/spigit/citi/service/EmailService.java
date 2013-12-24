@@ -116,6 +116,8 @@ public class EmailService  {
             transactionQueue.setTransmitTime(date);
             transactionQueue.setStatus(TransactionStatus.SUCCESS.name());
             transactionQueue.setErrorCondition("");
+            transactionQueue.setMessageId(getMessageID(mimeMessage.getHeader("Message-ID")));
+            logger.info("Message-ID: {}",mimeMessage.getHeader("Message-ID"));
             logger.info("Successful sent SMTP message at {}", date);
         }
         catch (NoSuchProviderException e) {
@@ -160,5 +162,15 @@ public class EmailService  {
             }
         }
         return transactionQueue;
+    }
+
+    private String getMessageID(String[] messageIDs) {
+        StringBuilder messageIDBuilder = new StringBuilder();
+        if(messageIDs!=null)    {
+            for (String s : messageIDs) {
+                messageIDBuilder.append(s);
+            }
+        }
+        return messageIDBuilder.toString();
     }
 }

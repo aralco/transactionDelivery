@@ -85,4 +85,14 @@ public class TransactionQueueDaoImpl implements TransactionQueueDao {
         transaction.commit();
         session.close();
     }
+
+    @Override
+    public void updateTransactionQueue(TransactionQueue transactionQueue) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        transactionQueue.setReported(Boolean.FALSE);
+        session.update(transactionQueue);
+        transaction.commit();
+        session.close();
+    }
 }
