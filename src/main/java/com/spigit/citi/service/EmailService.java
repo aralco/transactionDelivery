@@ -57,8 +57,8 @@ public class EmailService  {
         // Initialize the JavaMail Session:
         Properties props = System.getProperties();
         props.put("mail.smtp.from", envelopeFrom);
-        props.put("mail.smtp.auth", true);//required when using a gmail account
-        props.put("mail.smtp.starttls.enable", true);//required when using a gmail account
+//        props.put("mail.smtp.auth", true);//required when using a gmail account
+//        props.put("mail.smtp.starttls.enable", true);//required when using a gmail account
         Session mailsession = Session.getInstance(props, null);
 
         InputStream myInputStream = null;
